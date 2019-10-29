@@ -413,41 +413,41 @@ describe('loading Decorators', ()=>{
     });
 });
 
-describe('mixins decorators', ()=>{
-    test('merge data and method', ()=>{
-        let common = {
-            data: {
-                a: 1,
-                c: 3,
-            },
-            methods: {
-                test: jest.fn(),
-                test2: jest.fn(),
-            },
-        };
+// describe('mixins decorators', ()=>{
+//     test('merge data and method', ()=>{
+//         let common = {
+//             data: {
+//                 a: 1,
+//                 c: 3,
+//             },
+//             methods: {
+//                 test: jest.fn(),
+//                 test2: jest.fn(),
+//             },
+//         };
 
-        @Mixins(common)
-        class Vm {
-            data = {
-                a: 2,
-                b: 2,
-            }
-            methods= {
-                test: jest.fn(),
-            }
-        };
+//         @Mixins(common)
+//         class Vm {
+//             data = {
+//                 a: 2,
+//                 b: 2,
+//             }
+//             methods= {
+//                 test: jest.fn(),
+//             }
+//         };
 
-        let dvm = new Vm();
+//         let dvm = new Vm();
 
-        expect(dvm.mixins).toMatchObject([{
-            data: {
-                a: 1,
-                c: 3,
-            },
-            methods: {
-                test: expect.any(Function),
-                test2: expect.any(Function),
-            },
-        }]);
-    });
-});
+//         expect(dvm.mixins).toMatchObject([{
+//             data: {
+//                 a: 1,
+//                 c: 3,
+//             },
+//             methods: {
+//                 test: expect.any(Function),
+//                 test2: expect.any(Function),
+//             },
+//         }]);
+//     });
+// });
