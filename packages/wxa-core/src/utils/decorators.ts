@@ -122,7 +122,7 @@ function Deprecate(target, key, descriptor) {
  * @return {any}
  */
 function Time(name, ...rest) {
-    let h = (target, key, descriptor)=>{
+    let h: any = (target, key, descriptor)=>{
         let fn = descriptor.value;
         let timer;
 
@@ -264,4 +264,3 @@ export {
     Deprecate,
     Time,
 };
-

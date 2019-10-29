@@ -27,7 +27,7 @@ function Deprecate(target, key, descriptor) {
  * @return {any}
  */
 function Time(name, ...rest) {
-    let h = (target, key, descriptor)=>{
+    let h: any = (target, key, descriptor)=>{
         let fn = descriptor.value;
         let timer;
 
@@ -85,7 +85,7 @@ function Debounce(...args) {
     let delay = 300;
     let options = {leading: true, trailing: false};
 
-    let d = (target, key, descriptor)=>{
+    let d: any = (target: any, key: any, descriptor: any)=>{
         let fn = descriptor.value;
         descriptor.value = debounce(fn, delay, options);
     };
@@ -104,7 +104,7 @@ function Throttle(...args) {
     let first = 1000;
     let options = {leading: true, trailing: false};
 
-    let d = (target, key, descriptor)=>{
+    let d: any = (target: any, key: any, descriptor: any)=>{
         let fn = descriptor.value;
         descriptor.value = throttle(fn, first, options);
     };

@@ -1,6 +1,9 @@
 import wxapi from './wxapi';
 
 class Message {
+    wxapi: any;
+    config: any;
+
     constructor(wxapi) {
         this.wxapi = wxapi;
         this.config = {

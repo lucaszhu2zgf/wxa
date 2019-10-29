@@ -9,6 +9,8 @@ let waitQueue = [];
  * 请求的uuid
  */
 class Uuid {
+    requestQueue: any;
+
     /**
      *
      * @param {*} requestQueue
@@ -49,6 +51,9 @@ class Uuid {
  * 缓存请求
  */
 class RequestCache {
+    queue: any;
+    expired: any;
+
     constructor(expired = 500) {
         this.queue = [];
         this.expired = expired;
@@ -160,7 +165,7 @@ function $$fetch(configs) {
  *
  * @return {Promise}
  */
-export default function fetch(url, data = {}, axiosConfigs = {}, method = 'get') {
+export default function fetch(url, data = {}, axiosConfigs: any = {}, method = 'get') {
     let configs = {url, data, axiosConfigs, method};
     let {$top, $noCache} = axiosConfigs;
     delete axiosConfigs.$top;

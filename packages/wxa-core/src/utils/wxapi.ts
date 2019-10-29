@@ -6,7 +6,7 @@ let _wxapi = {};
 let noPromiseApi = ['getUpdateManager', 'nextTick'];
 let isInit = false;
 
-export default function wxapi(wx) {
+export default function wxapi(wx): any {
     if (isInit) return _wxapi;
 
     Object.keys(wx).forEach((key)=>{
@@ -19,7 +19,7 @@ export default function wxapi(wx) {
         ) {
             _wxapi[key] = wx[key];
         } else {
-            _wxapi[key] = promisify(wx[key], key);
+            _wxapi[key] = promisify(wx[key]);
         }
     });
     isInit = true;

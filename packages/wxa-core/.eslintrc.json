@@ -32,9 +32,12 @@
         "camelcase": "warn",
         "no-invalid-this": "warn",
         "new-cap": "warn",
-        "guard-for-in": "warn",
-        "no-extend-native": "warn",
-        "prefer-rest-params": "warn"
+        "guard-for-in": "warn"
     },
-    "plugins": ["jest"]
+    "plugins": ["jest"],
+    "globals": {
+        "wx": "readonly",
+        "App": "readonly"
+
+    }
 }

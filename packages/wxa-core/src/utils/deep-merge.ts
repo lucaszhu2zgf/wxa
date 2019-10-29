@@ -1,12 +1,3 @@
-(function(root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        define(factory);
-    } else if (typeof exports === 'object') {
-        module.exports = factory();
-    } else {
-        root.deepmerge = factory();
-    }
-}(this, function() {
 function isMergeableObject(val) {
     let nonNullObject = val && typeof val === 'object';
 
@@ -55,7 +46,7 @@ function mergeObject(target, source, optionsArgument) {
     return destination;
 }
 
-function deepmerge(target, source, optionsArgument) {
+function deepmerge(target, source, optionsArgument?: any) {
     let array = Array.isArray(source);
     let options = optionsArgument || {arrayMerge: defaultArrayMerge};
     let arrayMerge = options.arrayMerge || defaultArrayMerge;
@@ -78,5 +69,4 @@ deepmerge.all = function deepmergeAll(array, optionsArgument) {
     });
 };
 
-return deepmerge;
-}));
+export default deepmerge;

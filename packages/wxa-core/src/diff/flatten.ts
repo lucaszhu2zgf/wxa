@@ -1,7 +1,7 @@
 // fork from https://github.com/hughsk/flat/blob/master/index.js
 // modify for wxa
 
-function flatten(oldValue, newValue, diff, opts) {
+function flatten(oldValue, newValue, diff, opts?: any) {
     // if diff element is an array, then just return the array in wxa. so we allways need safe options in wxa.
     opts = opts || {safe: true};
 
@@ -9,7 +9,7 @@ function flatten(oldValue, newValue, diff, opts) {
     let maxDepth = opts.maxDepth;
     let output = {};
 
-    function step(oldValue, newValue, diff, prev, currentDepth) {
+    function step(oldValue, newValue, diff, prev?: any, currentDepth?: any) {
       currentDepth = currentDepth || 1;
       Object.keys(diff).forEach(function(key) {
         let diffChildValue = diff[key];

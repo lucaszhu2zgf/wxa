@@ -18,6 +18,16 @@ const notCopy = ['properties', 'data', 'methods', 'behaviors', 'created', 'attac
  * @class Wxa
  */
 export class Wxa {
+    IS_DEBUG: any;
+    $$pageMap: any;
+    $$plugins: any;
+    launch: any;
+    addNoPromiseApi: any;
+    setMaxRequest: any;
+    setRequestExpiredTime: any;
+    $$globalMixins: any;
+    enableAppEmbed: any;
+
     constructor() {
         // pages map, store the vm object.
         this.$$pageMap = new Map();

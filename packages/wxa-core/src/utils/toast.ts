@@ -1,6 +1,9 @@
 import wxapi from './wxapi';
 
 class Toast {
+    wxapi: any;
+    defaultOpt: any;
+
     constructor(wxapi) {
         this.wxapi = wxapi;
         this.defaultOpt = {

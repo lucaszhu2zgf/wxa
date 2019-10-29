@@ -2,6 +2,9 @@ import wxapi from './wxapi';
 import {wxa} from '../wxa';
 
 export default class Router {
+    wxapi: any;
+    $apiMap: any;
+
     constructor() {
         this.wxapi = wxapi(wx);
 

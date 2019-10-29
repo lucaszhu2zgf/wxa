@@ -1,7 +1,6 @@
 class Eventbus {
-    constructor() {
-        this.storage = {};
-    }
+    storage = {}
+
     findIndex(arr, x) {
         return arr.findIndex((item)=>item===x);
     };
