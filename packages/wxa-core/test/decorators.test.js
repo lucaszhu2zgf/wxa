@@ -134,19 +134,32 @@ describe('lodash decorators', ()=>{
         let counter1 = jest.fn();
         let counter2 = jest.fn();
 
-        let {descriptor: {value: dc1}} = Debounce()({descriptor: {value: ()=>counter1()}});
+        class T {
+            @Debounce
+            foo() {
+                counter1();
+            }
 
-        let {descriptor: {value: dc2}} = Debounce(1000)({descriptor: {value: ()=>counter2()}});
+            @Debounce(1000)
+            bar() {
+                counter2();
+            }
+        }
 
-        dc1();
-        dc1();
-        dc1();
+        // let {descriptor: {value: dc1}} = Debounce()({descriptor: {value: ()=>counter1()}});
+
+        // let {descriptor: {value: dc2}} = Debounce(1000)({descriptor: {value: ()=>counter2()}});
+
+        const i = new T();
+        i.foo();
+        i.foo();
+        i.foo();
 
         expect(counter1).toHaveBeenCalledTimes(1);
 
-        dc2();
-        dc2();
-        dc2();
+        i.bar();
+        i.bar();
+        i.bar();
         expect(counter2).toHaveBeenCalledTimes(1);
     });
 
@@ -206,7 +219,7 @@ describe('lodash decorators', ()=>{
         global.console = originConsole;
 
         class T {
-            @Throttle()
+            @Throttle
             foo() {
                 c1();
             }

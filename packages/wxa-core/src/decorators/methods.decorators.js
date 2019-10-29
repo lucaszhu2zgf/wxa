@@ -6,25 +6,19 @@ import throttle from 'lodash/throttle';
 /**
  * mark methods to deprecate. while developer call it, print a warning text to console
  *
- * @param {any} methodDescriptor
- *
- * @return {any}
+ * @param {any} target
+ * @param {any} key
+ * @param {any} descriptor
  */
-function Deprecate(methodDescriptor) {
-    let {descriptor, key} = methodDescriptor;
-
+function Deprecate(target, key, descriptor) {
     let fn = descriptor.value;
 
     descriptor.value = function(...args) {
         console.warn(`DEPRECATE: [${key}] This function will be removed in future versions.`);
         return fn.apply(this, args);
     };
-
-    return {
-        ...methodDescriptor,
-        descriptor,
-    };
 }
+
 /**
  * record timing that function consume.
  *
@@ -33,9 +27,7 @@ function Deprecate(methodDescriptor) {
  * @return {any}
  */
 function Time(name, ...rest) {
-    let h = (methodDescriptor)=>{
-        let {key, descriptor} = methodDescriptor;
-
+    let h = (target, key, descriptor)=>{
         let fn = descriptor.value;
         let timer;
 
@@ -73,11 +65,6 @@ function Time(name, ...rest) {
                 return r;
             }
         };
-
-        return {
-            ...methodDescriptor,
-            descriptor,
-        };
     };
 
     if (typeof name === 'string') {
@@ -94,83 +81,68 @@ function Time(name, ...rest) {
  * @param {Object} [options={leading: true, trailing: false}]
  * @return {any}
  */
-function Debounce(delay=300, options={leading: true, trailing: false}) {
-    let d = (methodDescriptor, args)=>{
-        let {descriptor} = methodDescriptor;
+function Debounce(...args) {
+    let delay = 300;
+    let options = {leading: true, trailing: false};
 
+    let d = (target, key, descriptor)=>{
         let fn = descriptor.value;
-        descriptor.value = debounce(fn, ...args);
-
-        return {
-            ...methodDescriptor,
-            descriptor,
-        };
+        descriptor.value = debounce(fn, delay, options);
     };
 
-    if (typeof delay === 'object') {
-        d(delay, [300, {leading: true, trailing: false}]);
+    const isWithOptions = typeof args[0] === 'number';
+    if (isWithOptions) {
+        delay = args[0] || delay;
+        options = args[1] || options;
+        return d;
     } else {
-        return (m)=>d(m, [delay, options]);
+        d(...args);
     }
 }
 
-function Throttle(first=1000, options={}) {
-    let d = (methodDescriptor, args)=>{
-        let {descriptor} = methodDescriptor;
+function Throttle(...args) {
+    let first = 1000;
+    let options = {leading: true, trailing: false};
 
+    let d = (target, key, descriptor)=>{
         let fn = descriptor.value;
-        // console.log(...args);
-        descriptor.value = throttle(fn, ...args);
-
-        return {
-            ...methodDescriptor,
-            descriptor,
-        };
+        descriptor.value = throttle(fn, first, options);
     };
 
-    if (typeof first === 'object') {
-        d(first, [1000, {leading: true, trailing: false}]);
+    const isWithOptions = typeof args[0] === 'number';
+    if (isWithOptions) {
+        first = args[0] || first;
+        options = args[1] || options;
+        return d;
     } else {
-        return (m)=>d(m, [first, options]);
+        d(...args);
     }
 }
 
-function Once(methodDescriptor) {
-    let {descriptor} = methodDescriptor;
-
+function Once(target, key, descriptor) {
     let fn = descriptor.value;
     descriptor.value = once(fn);
-
-    return {
-        ...methodDescriptor,
-        descriptor,
-    };
 }
 
 function Delay(wait) {
-    return function(methodDescriptor) {
-        let {descriptor} = methodDescriptor;
+    return function(target, key, descriptor) {
         let fn = descriptor.value;
 
         descriptor.value = function(...args) {
             return delay(fn, wait, ...args);
         };
-
-        return {
-            ...methodDescriptor,
-            descriptor,
-        };
     };
 }
+
 /**
  * Lock function util fn finish process
  *
- * @param {Object} methodDescriptor
+ * @param {Object} target
+ * @param {string} key
+ * @param {Object} descriptor
  *
- * @return {Function}
  */
-function Lock(methodDescriptor) {
-    let {descriptor} = methodDescriptor;
+function Lock(target, key, descriptor) {
     let fn = descriptor.value;
     let $$LockIsDoing = false;
 
@@ -195,11 +167,6 @@ function Lock(methodDescriptor) {
             return ret;
         }
     };
-
-    return {
-        ...methodDescriptor,
-        descriptor,
-    };
 }
 
 /**
@@ -211,9 +178,7 @@ function Lock(methodDescriptor) {
  * @return {Function}
  */
 export default function Loading(tips='Loading', type='loading') {
-    return function(methodDescriptor) {
-        let {descriptor} = methodDescriptor;
-
+    return function(target, key, descriptor) {
         let map = {
             loading: {
                 show: wx.showLoading,
@@ -244,11 +209,6 @@ export default function Loading(tips='Loading', type='loading') {
             } else {
                 loader.hide();
             }
-        };
-
-        return {
-            ...methodDescriptor,
-            descriptor,
         };
     };
 }
