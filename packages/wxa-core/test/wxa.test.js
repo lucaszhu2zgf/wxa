@@ -53,7 +53,9 @@ describe('wxa unit test', ()=>{
         const wxaInstance = new Wxa();
         const mock = jest.fn();
 
-        wxaInstance.mixin(()=>mock());
+        wxaInstance.mixin(function() {
+            return mock();
+        });
         expect(mock).not.toBeCalled();
 
         wxaInstance.launchPage({});

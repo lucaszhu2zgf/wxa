@@ -210,6 +210,8 @@ export default function Loading(tips='Loading', type='loading') {
                 loader.hide();
             }
         };
+
+        return descriptor;
     };
 }
 

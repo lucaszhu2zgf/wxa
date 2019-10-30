@@ -5,6 +5,7 @@
     "main": "./dist/main.js",
     "scripts": {
         "prebuild": "sh prebuild.sh",
+        "build:type": "tsc",
         "build": "webpack src/index.js --output-path ./dist/ --optimize-minimize",
         "dev": "npm run prebuild && webpack src/index.js --output-path ./dist/ -w",
         "test": "jest --no-cache",
@@ -13,8 +14,7 @@
         "precommit": "lint-staged",
         "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
         "prepublishOnly": "npm run prebuild && npm run build",
-        "commit": "git cz",
-        "check-types": "tsc"
+        "commit": "git cz"
     },
     "author": "iveswen",
     "license": "MIT",
@@ -37,7 +37,7 @@
         "eslint-config-google": "^0.9.1",
         "eslint-plugin-jest": "^21.27.1",
         "husky": "^0.14.3",
-        "jest": "^23.6.0",
+        "jest": "^24.9.0",
         "jest-plugin-console-matchers": "^2.9.0",
         "lint-staged": "^6.1.1",
         "miniprogram-api-typings": "^2.9.0",

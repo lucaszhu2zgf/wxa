@@ -383,27 +383,27 @@ describe('loading Decorators', ()=>{
     wx.hideNavigationBarLoading = hideNavigationBarLoading;
 
     test('1. loading', ()=>{
-        let {descriptor: {value: dc1}} = Loading()({descriptor: {value: ()=>{}}});
+        let {value: dc1} = Loading()(null, null, {value: ()=>{}});
 
         dc1();
         expect(showLoading).toHaveBeenCalledTimes(1);
         expect(hideLoading).toHaveBeenCalledTimes(1);
 
-        let {descriptor: {value: dc2}} = Loading(void(0), 'bar')({descriptor: {value: ()=>{}}});
+        let {value: dc2} = Loading(void(0), 'bar')(null, null, {value: ()=>{}});
         dc2();
         expect(showNavigationBarLoading).toHaveBeenCalledTimes(1);
         expect(hideNavigationBarLoading).toHaveBeenCalledTimes(1);
     });
 
     test('2. promise loading', async ()=>{
-        let {descriptor: {value: dc1}} = Loading()({descriptor: {value: ()=>Promise.resolve()}});
+        let {value: dc1} = Loading()(null, null, {value: ()=>Promise.resolve()});
 
         await dc1();
 
         expect(showLoading).toHaveBeenCalledTimes(2);
         expect(hideLoading).toHaveBeenCalledTimes(2);
 
-        let {descriptor: {value: dc2}} = Loading(void(0), 'bar')({descriptor: {value: ()=>Promise.resolve()}});
+        let {value: dc2} = Loading(void(0), 'bar')(null, null, {value: ()=>Promise.resolve()});
 
         await dc2();
         expect(showNavigationBarLoading).toHaveBeenCalledTimes(2);
@@ -411,14 +411,14 @@ describe('loading Decorators', ()=>{
     });
 
     test('3. reject promise loading', async ()=>{
-        let {descriptor: {value: dc1}} = Loading()({descriptor: {value: ()=>Promise.reject()}});
+        let {value: dc1} = Loading()(null, null, {value: ()=>Promise.reject()});
 
         await dc1();
 
         expect(showLoading).toHaveBeenCalledTimes(3);
         expect(hideLoading).toHaveBeenCalledTimes(3);
 
-        let {descriptor: {value: dc2}} = Loading(void(0), 'bar')({descriptor: {value: ()=>Promise.reject()}});
+        let {value: dc2} = Loading(void(0), 'bar')(null, null, {value: ()=>Promise.reject()});
 
         await dc2();
         expect(showNavigationBarLoading).toHaveBeenCalledTimes(3);

@@ -8,7 +8,7 @@ import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 import * as helpers from '../utils/helpers';
 import fetch from '../utils/fetch';
-import mixin from '../base/mixin';
+// import mixin from '../base/mixin';
 
 // Class Decorators.
 const Eventbus = classFactory('$eventbus', eventbus);
@@ -28,7 +28,7 @@ const Fetch = classFactory('$fetch', fetch);
 //
 // 不是不能，有个运行时的办法可以解决，但不能做静态分析
 // 参考：https://stackoverflow.com/questions/54813329/adding-properties-to-a-class-via-decorators-in-typescript
-//
+
 // const Mixins = (...args)=>classFactory('mixins', [mixin({mixins: args})]);
 
 const enhanceClass = (constructor) => {
