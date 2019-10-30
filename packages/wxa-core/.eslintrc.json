@@ -1,5 +1,8 @@
 {
-    "extends": "./node_modules/eslint-config-google/index.js",
+    "extends": [
+        "./node_modules/eslint-config-google/index.js",
+        "plugin:@typescript-eslint/eslint-recommended"
+    ],
     "root": true,
     "env": {
         "browser": true,
@@ -8,11 +11,9 @@
         "node": true,
         "jest/globals": true
     },
-    "parser": "babel-eslint",
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
+        "ecmaVersion": 2018,
         "sourceType": "module"
     },
     "rules": {
@@ -34,7 +35,10 @@
         "new-cap": "warn",
         "guard-for-in": "warn"
     },
-    "plugins": ["jest"],
+    "plugins": [
+        "jest",
+        "@typescript-eslint"
+    ],
     "globals": {
         "wx": "readonly",
         "App": "readonly"

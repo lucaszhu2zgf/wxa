@@ -61,7 +61,7 @@ const Page = (classDescriptor)=>{
         Router(classDescriptor).elements,
         Eventbus(classDescriptor).elements,
         GetApp(classDescriptor).elements,
-        Fetch(classDescriptor).elements
+        Fetch(classDescriptor).elements,
     );
 
     return {
@@ -128,9 +128,9 @@ function Time(name, ...rest) {
 
         let timeStart;
         let timeEnd;
-        if (console.time == null) {
-            timeStart = console.time;
-            timeEnd = console.timeEnd;
+        if ((<any>console).time == null) {
+            timeStart = (<any>console).time;
+            timeEnd = (<any>console).timeEnd;
         } else {
             timeStart = ()=>{
                 timer = Date.now();

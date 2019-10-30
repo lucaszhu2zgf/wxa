@@ -33,9 +33,9 @@ function Time(name, ...rest) {
 
         let timeStart;
         let timeEnd;
-        if (console != null && typeof console.time === 'function') {
-            timeStart = console.time;
-            timeEnd = console.timeEnd;
+        if (console != null && typeof (<any>console).time === 'function') {
+            timeStart = (<any>console).time;
+            timeEnd = (<any>console).timeEnd;
         } else {
             timeStart = ()=>{
                 timer = Date.now();
