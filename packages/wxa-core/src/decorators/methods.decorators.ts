@@ -85,9 +85,9 @@ function Debounce(...args) {
     let delay = 300;
     let options = {leading: true, trailing: false};
 
-    let d: any = (target: any, key: any, descriptor: any)=>{
+    let d: any = function(target: any, key: any, descriptor: any) {
         let fn = descriptor.value;
-        descriptor.value = debounce(fn, delay, options);
+        descriptor.value = debounce(fn.bind(this), delay, options);
     };
 
     const isWithOptions = typeof args[0] === 'number';
@@ -104,9 +104,9 @@ function Throttle(...args) {
     let first = 1000;
     let options = {leading: true, trailing: false};
 
-    let d: any = (target: any, key: any, descriptor: any)=>{
+    let d: any = function(target: any, key: any, descriptor: any) {
         let fn = descriptor.value;
-        descriptor.value = throttle(fn, first, options);
+        descriptor.value = throttle(fn.bind(this), first, options);
     };
 
     const isWithOptions = typeof args[0] === 'number';
@@ -121,7 +121,7 @@ function Throttle(...args) {
 
 function Once(target, key, descriptor) {
     let fn = descriptor.value;
-    descriptor.value = once(fn);
+    descriptor.value = once(fn.bind(this));
 }
 
 function Delay(wait) {
@@ -129,7 +129,7 @@ function Delay(wait) {
         let fn = descriptor.value;
 
         descriptor.value = function(...args) {
-            return delay(fn, wait, ...args);
+            return delay(fn.bind(this), wait, ...args);
         };
     };
 }
